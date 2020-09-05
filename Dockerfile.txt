@@ -1,0 +1,13 @@
+FROM Ubuntu
+
+MAINTAINER <akashtawade932@gmail.com>
+
+
+RUN apt-get update 
+RUN docker pull robertlgtucker/pyspark-java8
+RUN docker run -it robertlgtucker/pyspark-java8
+RUN $SPARK_HOME/sbin/start-master.sh
+RUN spark-shell --version
+RUN exit
+
+CMD["echo","pyspark Installed..."]
