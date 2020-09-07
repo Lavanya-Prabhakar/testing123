@@ -1,0 +1,31 @@
+pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Checkout') {
+        steps {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[git credentialsId: '05e23b0e-0616-402c-85dd-4320abc54bb0', url: 'https://github.com/Lavanya-Prabhakar/testing123.git']]])
+            }
+        }
+        stage('Build') {
+               steps {
+                        git credentialsId: '05e23b0e-0616-402c-85dd-4320abc54bb0', url: 'https://github.com/Lavanya-Prabhakar/testing123.git'
+						bat label: '', script: 'docker build .'
+                    }
+                }
+         stage('Test') {
+            steps {
+                echo 'Job has been test'
+            }
+        }
+        stage('QA Deploy') {
+            steps {
+                echo 'Job has been deployed'
+            }
+        }
+         stage('Prod Deploy') {
+            steps {
+                echo 'Production Deployment done'
+            }
+        }
+    }
+}
